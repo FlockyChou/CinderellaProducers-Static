@@ -3,6 +3,19 @@ function updateCards() {
     handleClickInfo();
     handleClickAddCard();
     handleLevels();
+    $('.card-buttons .account-select').each(function() {
+	var select = $(this);
+	if (!select.next().hasClass('cuteform-modal-button')) {
+	    var accounts = {};
+	    select.find('option').each(function() {
+		accounts[$(this).attr('value')] = $(this).text();
+	    });
+	    cuteform(select, {
+		'modal': 'true',
+		'html': accounts,
+	    });
+	}
+    });
 }
 
 function handleClickAddCard() {
@@ -21,6 +34,7 @@ function handleClickAddCard() {
 		button.show();
 		card.replaceWith(data);
 		updateCards();
+		ajaxModals();
 	    },
 	    error: genericAjaxError,
 	});
@@ -41,8 +55,9 @@ function handleClickInfo() {
 	    loader.hide();
 	    button.show();
 	    $('[data-toggle="tooltip"]').tooltip('hide');
-	    freeModal(card.data('card-title'), data);
+	    freeModal(card.data('card-title'), data, 0);
 	    updateCards();
+	    ajaxModals();
 	});
 	return false;
     });
@@ -57,6 +72,42 @@ function changeStats(stats, level) {
 	    stat.find('.progress-bar').css('width', levels[level]['percent'] + '%');
 	}
     });
+}
+
+function changeSkillLevel(e) {
+    e.preventDefault();
+    var button = $(this);
+    var skill = button.closest('.card-skills');
+    var level_span = skill.find('.skill-level');
+    var max_level = parseInt(level_span.data('max-level'));
+    var skill_details = skill.data('levels');
+    var current_level = parseInt(level_span.text());
+    var new_level;
+    if (button.attr('href').indexOf('+') >= 0) {
+	new_level = current_level + 1;
+    } else {
+	new_level = current_level - 1;
+    }
+    if (new_level > max_level) {
+	new_level = max_level;
+    }
+    if (new_level < 1) {
+	new_level = 1;
+    }
+    if (new_level == max_level) {
+	skill.find('[href="#changeSkillLevel+"]').addClass('disabled');
+    } else {
+	skill.find('[href="#changeSkillLevel+"]').removeClass('disabled');
+    }
+    if (new_level == 1) {
+	skill.find('[href="#changeSkillLevel-"]').addClass('disabled');
+    } else {
+	skill.find('[href="#changeSkillLevel-"]').removeClass('disabled');
+    }
+    level_span.text(new_level);
+    skill.find('.skill-details').first().text(skill_details['english'][new_level]);
+    skill.find('.skill-details-jp').first().text(skill_details['japanese'][new_level]);
+    return false;
 }
 
 function handleLevels() {
@@ -75,4 +126,38 @@ function handleLevels() {
 	var stats = $(this).closest('.card-stats');
 	changeStats(stats, level);
     });
+    $('[href="#changeSkillLevel+"]').unbind('click');
+    $('[href="#changeSkillLevel+"]').click(changeSkillLevel);
+    $('[href="#changeSkillLevel-"]').unbind('click');
+    $('[href="#changeSkillLevel-"]').click(changeSkillLevel);
 }
+
+$(document).ready(function() {
+    if ($('#sidebar-wrapper #id_type').length > 0 && $('#sidebar-wrapper #id_type + .cuteform').length < 1) {
+	multiCuteForms({
+	    'type': cuteformType,
+	});
+    }
+    if (typeof hidden_handler != 'undefined') {
+	if (!hidden_handler && is_authenticated) {
+	    hidden_handler = true;
+	    $('#freeModal').on('hidden.bs.modal', function () {
+		if (cards_to_reload.length > 0) {
+		    $.get('/ajax/cards/?ids=' + cards_to_reload.join(',') + '&page_size=' + cards_to_reload.length, function(data) {
+			var html = $(data);
+			html.find('.card').each(function() {
+			    var newCardItem = $(this);
+			    var cardItem = $('#' + newCardItem.prop('id'));
+			    if (cardItem.length > 0) {
+				cardItem.html(newCardItem.html());
+			    }
+			    cards_to_reload = [];
+			    updateCards();
+			    ajaxModals();
+			});
+		    });
+		}
+	    });
+	}
+    }
+});

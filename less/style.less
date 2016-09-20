@@ -1,6 +1,13 @@
-@import "main.less";
-@import "mixins/buttons.less";
-@import "mixins/a.less";
+/* @import "main.less"; */
+/* @import "mixins/buttons.less"; */
+/* @import "mixins/a.less"; */
+@import "//i.cinderella.pro/static/less/main.less";
+@import "//i.cinderella.pro/static/less/mixins/buttons.less";
+@import "//i.cinderella.pro/static/less/mixins/a.less";
+@import "//i.cinderella.pro/static/bower/bootstrap/less/mixins/panels.less";
+/* @import "../../../env/lib/python2.7/site-packages/web/static/less/main.less"; */
+/* @import "../../../env/lib/python2.7/site-packages/web/static/less/mixins/buttons.less"; */
+/* @import "../../../env/lib/python2.7/site-packages/web/static/less/mixins/a.less"; */
 
 @import 'https://fonts.googleapis.com/css?family=Rubik:400,700';
 
@@ -35,9 +42,6 @@ body {
 .navbar.navbar-fixed-top {
     background-image: linear-gradient(280deg, darken(@gradient1, 5%), darken(@gradient2, 5%), darken(@gradient3, 5%), darken(@gradient4, 5%), darken(@gradient1, 5%));
     border-color: fade(@mainColor, 50%);
-    .navbar-brand {
-	font-weight: 700;
-    }
 }
 
 .btn-main {
@@ -53,6 +57,15 @@ body {
     white-space: normal;
 }
 
+.panel-simple-variant(@color) {
+     .panel-variant(lighten(@color, 20%), #fff, @color, lighten(@color, 20%));
+}
+
+.panel-Cute { .panel-simple-variant(@cuteColor); }
+.panel-Cool { .panel-simple-variant(@coolColor); }
+.panel-Passion { .panel-simple-variant(@passionColor); }
+.panel-main { .panel-simple-variant(@mainColor); }
+
 .btn-Cute { .button-variant(white, @cuteColor, darken(@cuteColor, 2%)); }
 .btn-Cool { .button-variant(white, @coolColor, darken(@coolColor, 2%)); }
 .btn-Passion { .button-variant(white, @passionColor, darken(@passionColor, 2%)); }
@@ -60,6 +73,40 @@ body {
 .btn-link-Cute { .button-variant(@cuteColor, @transparent, @transparent); }
 .btn-link-Cool { .button-variant(@coolColor, @transparent, @transparent); }
 .btn-link-Passion { .button-variant(@passionColor, @transparent, @transparent); }
+
+.idol {
+    padding: 30px 0;
+    text-align: center;
+    .idol-img {
+	height: 200px;
+	display: block;
+	margin: auto;
+    }
+    &.idol-Cute { .a-variant(@cuteColor); }
+    &.idol-Cool { .a-variant(@coolColor); }
+    &.idol-Passion { .a-variant(@passionColor); }
+}
+
+.idol-info {
+    .idol-image {
+	height: 150px;
+	margin: 5px 40px;
+    }
+    .btn-group .btn {
+	margin: 45px 0px;
+    }
+    .about-table {
+	margin: auto;
+	max-width: 768px;
+	td:last-child {
+	    text-align: right;
+	}
+    }
+}
+
+[data-cuteform-text="---------"] {
+    background: white;
+}
 
 .card {
     text-align: right;
@@ -72,6 +119,11 @@ body {
     }
     .card-image {
 	width: 50%;
+    }
+    .share-buttons {
+	margin: auto;
+	width: auto!important;
+	margin-bottom: 30px;
     }
     .card-buttons {
 	@buttonsize: 40px;
@@ -87,6 +139,29 @@ body {
 		opacity: 0.8;
 	    }
 	}
+	form {
+	    font-size: 0.4em;
+	    display: inline-block;
+	    line-height: 1em;
+	    small {
+		display: block;
+	    }
+	    .cuteform-modal-button {
+		background-color: @transparent;
+		color: white;
+		border: 0;
+		box-shadow: none;
+		padding: 0;
+		margin: 0;
+		line-height: 10px;
+		width: auto;
+		.cuteform-elt {
+		    border: 0;
+		    padding: 0;
+		    margin: 0;
+		}
+	    }
+	}
 	[class^="flaticon-"] {
 	    margin: 0 5px;
 	    display: inline-block;
@@ -94,12 +169,20 @@ body {
 	    border-radius: 50%;
 	    color: white;
 	}
-	.flaticon-add, .flaticon-checked, .flaticon-edit {
+	.flaticon-add, .flaticon-checked, .flaticon-edit, .total-button {
 	    border-radius: 50%;
 	    font-size: @buttonsize - 20;
 	    line-height: @buttonsize - 20;
 	    padding: 10px;
 	    background-color: white;
+	}
+	.total-button {
+	    display: inline-block;
+	    font-weight: bold;
+	    text-align: center;
+	    position: relative;
+	    line-height: @buttonsize - 16;
+	    bottom: 5px;
 	}
 	.tooltip {
 	    font-weight: bold;
@@ -120,7 +203,7 @@ body {
 	.card-buttons {
 	    background-color: @color;
 	    background-image: linear-gradient(@color, darken(@color, 5%));
-	    .flaticon-add, .flaticon-checked, .flaticon-edit {
+	    .flaticon-add, .flaticon-checked, .flaticon-edit, .total-button {
 		color: @color;
 	    }
 	}
@@ -133,6 +216,20 @@ body {
 	    }
 	    a {
 		color: @color;
+	    }
+	}
+	.card-skills {
+	    .skill-details-jp {
+		font-size: 0.8em;
+	    }
+	    .skill-level {
+		font-weight: bold;
+		display: inline-block;
+		width: 40px;
+	    }
+	    .btn-group {
+		width: auto;
+		padding-left: 30px;
 	    }
 	}
 	.progress-bar {
@@ -168,6 +265,14 @@ body {
 }
 
 .card-info {
+    .event-image {
+	width: 200px;
+	max-width: 100%;
+    }
+    .idol-image {
+	height: 80px;
+	float: right;
+    }
     .card-art, .card-art-awakened {
 	height: 600px;
 	background-size: 150%;
@@ -183,6 +288,10 @@ body {
 	    background-color: rgba(255, 255, 255, 0.5);
 	    margin-bottom: 30px;
 	}
+    }
+    .cards-stats-inner-inner {
+	background-repeat: no-repeat;
+	background-size: auto 90%;
     }
     .card-stats-background {
 	content: "";
@@ -204,6 +313,9 @@ body {
 	.card-stats-inner {
 	    background-image: linear-gradient(100deg, @transparent, @transparent, @transparent, @transparent, @transparent, @transparent, fade(white, 10%), fade(white, 80%), fade(white, 85%), fade(white, 85%), fade(white, 85%), fade(white, 85%), fade(white, 85%), @transparent);
 	}
+	.cards-stats-inner-inner {
+	    background-position: left bottom;
+	}
     }
     .card-art-awakened {
 	background-position: 0% center;
@@ -217,12 +329,16 @@ body {
 	.card-stats-inner {
 	    background-image: linear-gradient(260deg, @transparent, @transparent, @transparent, @transparent, @transparent, @transparent, fade(white, 10%), fade(white, 80%), fade(white, 85%), fade(white, 85%), fade(white, 85%), fade(white, 85%), fade(white, 85%), @transparent);
 	}
+	.cards-stats-inner-inner {
+	    background-position: right bottom;
+	}
     }
     .card-basic-info, .card-skills {
 	font-size: 1.2em;
 	width: 100%;
 	margin: 60px 0;
 	tr {
+	    vertical-align: top;
 	    text-align: center;
 	    padding: 10px;
 	    h4 {
@@ -340,9 +456,13 @@ body {
 	.card-art, .card-art-awakened {
 	    background-position: center -100px;
 	    background-size: 800px;
-	    padding-top: 420px;
 	    background-repeat: no-repeat;
 	    height: auto;
+	    .cards-stats-inner-inner {
+		padding-top: 420px;
+		background-position: center top;
+		background-size: auto 415px;
+	    }
 	    .card-stats {
 		margin: 0;
 		padding: 20px;
@@ -442,6 +562,9 @@ body {
 	border-bottom-left-radius: 10px;
 	background: white;
     }
+    .open_remaining {
+	font-size: 2em;
+    }
     .per_type(@color) {
 	@faded: fade(@color, 45%);
 	.profile-level {
@@ -452,6 +575,9 @@ body {
 	}
 	.btn-inherit {
 	    .button-variant(white, @color, darken(@color, 2%));
+	}
+	.open_remaining {
+	    .a-variant(@color);
 	}
 	.nav {
 	    border-color: lighten(@color, 35%);
@@ -487,11 +613,11 @@ body {
 	    background-size: 743px;
 	    background-repeat: no-repeat;
 	    height: 100px;
-	    margin-bottom: (@height * 2) + (@padding * 2) - @navheight + 10;
+	    margin-bottom: (@height * 2) + (@padding * 2) - @navheight + 34;
 	    .profile-header-character {
 		padding-top: 100px;
-		background-size: 500px;
-		background-position-y: -100%;
+		background-size: 250px auto;
+		background-position: center -30px;
 	    }
 	    .profile-level, .profile-info {
 		border-radius: 0;
@@ -537,18 +663,16 @@ body {
     .col-xs-2 {
 	padding: 1px;
     }
-    .ownedcard {
-	text-align: center;
-	img {
-	    width: 100%;
-	    padding-bottom: 20px;
-	    max-width: 160px;
-	    display: block;
-	    margin: auto;
-	}
-	.list-group {
-	    text-align: left;
-	}
+}
+.ownedcard {
+    text-align: center;
+    max-width: 124px;
+    margin: auto;
+    img {
+	width: 100%;
+	max-width: 160px;
+	display: block;
+	margin: auto;
     }
 }
 
@@ -579,8 +703,19 @@ body {
     background-position: center top;
     background-size: 110%;
     padding-bottom: 72px;
+    .avatar {
+	width: 100%;
+	max-width: 200px;
+    }
     a, #username {
 	color: white;
+    }
+    & + div {
+	&:not(.empty) {
+	    background-color: @mainColor;
+	    margin-top: -50px;
+	    padding-bottom: 70px;
+	}
     }
     .per_type(@color) {
 	#username, a {
@@ -588,6 +723,20 @@ body {
 	}
 	.description {
 	    .simple-shadow(lighten(@color, 20%));
+	}
+	& + div {
+	    &:not(.empty) {
+		background-color: @color;
+		table td {
+		    background-color: @color;
+		    img {
+			width: auto!important;
+		    }
+		    &:hover {
+			background-color: darken(@color, 10%);
+		    }
+		}
+	    }
 	}
     }
     &.jumbotron-Cute { .per_type(@cuteColor); }
@@ -597,6 +746,19 @@ body {
 	.per_type(@mainColor);
 	.description {
 	    color: @mainColor;
+	}
+    }
+}
+
+@media (max-width: 768px) {
+    .current-user_item {
+	.table-buttons {
+	    border: 0;
+	    td {
+		display: block;
+		width: 100%;
+		border-radius: 0;
+	    }
 	}
     }
 }
@@ -616,6 +778,205 @@ body {
     #profiletabs {
 	a {
 	    color: @mainColor;
+	}
+    }
+}
+
+.leaderboard-account {
+    border-radius: 10px;
+    border: 2px solid;
+    &>a {
+	display: block;
+	padding: 10px 20px;
+	color: white;
+	&:hover, &:focus {
+	    color: white;
+	    text-decoration: none;
+	}
+    }
+    &:not(.account-main)>a {
+	background-color: fade(white, 30%);
+	&:hover {
+	    background-color: @transparent;
+	}
+    }
+    .avatar {
+	margin: 0;
+	border: 2px solid white;
+	background: white;
+    }
+    .avatar-Cool .avatar { border-color: @coolColor; }
+    .avatar-Cute .avatar { border-color: @cuteColor; }
+    .avatar-Passion .avatar { border-color: @passionColor; }
+    .avatar-main .avatar { border-color: @mainColor; }
+    .center {
+	max-width: 100%;
+    }
+    .prefix {
+	font-size: 0.6em;
+    }
+    .per_type(@color) {
+	border-color: lighten(@color, 10%);
+	h3 {
+	    .simple-shadow(@color);
+	    line-height: 100px;
+	    margin: 0;
+	    padding: 0;
+	    font-size: 50px;
+	}
+    }
+    &.account-Cute { .per_type(@cuteColor); }
+    &.account-Cool { .per_type(@coolColor); }
+    &.account-Passion { .per_type(@passionColor); }
+    &.account-main { .per_type(@mainColor); }
+}
+
+.current-settings, .current-account_list, .current-account_edit {
+    .modal .cuteform img.cuteform-elt:not([data-cuteform-text="---------"]) {
+	width: auto;
+	height: 90px;
+	border-radius: 0;
+	&.cuteform-selected {
+	    border-radius: 50%;
+	}
+    }
+}
+
+.modal .cuteform .cuteform-elt {
+    font-size: 1.5em;
+}
+
+#sidebar-wrapper, .current-account_add, .current-account_edit {
+    #id_starter_id + .cuteform, #id_center + .cuteform-modal-button {
+	.cuteform-elt {
+	    border-radius: 6px;
+	    width: 42px;
+	}
+    }
+    #id_favorite_character + .cuteform-modal-button {
+	color: darken(@mainColor, 10%);
+	border-color: darken(@mainColor, 10%);
+    }
+    #id_accept_friend_requests + .cuteform, #id_i_play_with + .cuteform, #id_i_blood_type + .cuteform, #id_i_writing_hand + .cuteform {
+	[data-cuteform-val="1"], [data-cuteform-val=""] {
+	    padding: 0;
+	    img {
+		width: 24px;
+	    }
+	}
+	[class^="flaticon-"] {
+	    padding-right: 5px;
+	}
+    }
+    .container-for-generic-form, &#sidebar-wrapper {
+	[data-cuteform-text="---------"] {
+	    background: white;
+	    width: 30px!important;
+	    border-radius: 50%!important;
+	}
+    }
+    #id_center + .cuteform-modal-button {
+	border: 0;
+	box-shadow: none;
+	padding: 0;
+    }
+    #id_i_os + .cuteform {
+	[class^="flaticon-"] {
+	    font-size: 1.5em;
+	}
+    }
+    #id_i_astrological_sign + .cuteform {
+	.cuteform-elt:not([data-cuteform-val=""]) {
+	    background-color: fade(white, 80%);
+	    border-radius: 5px;
+	    padding: 3px;
+	    &.cuteform-selected {
+		background-color: white;
+	    }
+	}
+    }
+}
+
+.popover-content {
+    .table {
+	margin: 0;
+	tr:first-child {
+	    td, th {
+		border-top: none;
+	    }
+	}
+	td:last-child {
+	    text-align: right;
+	}
+    }
+}
+
+.event, .event-info {
+    padding: 20px 0;
+    text-align: center;
+    .about-table {
+	margin: auto;
+	max-width: 768px;
+	td:last-child {
+	    text-align: right;
+	}
+    }
+    #countdown {
+	margin: 0;
+	padding: 60px 0;
+    }
+}
+
+.collection {
+}
+.account-collection {
+    padding: 40px 0;
+    [href="#addCard"] {
+	text-align: center;
+	display: block;
+	padding: 40px;
+	font-size: 5em;
+    }
+}
+
+.get_started {
+    font-size: 2em;
+    h1, ul {
+	padding: 40px;
+    }
+    .btn {
+	margin: 40px 0;
+    }
+    li {
+	padding: 15px;
+    }
+    .get-started-video {
+	width: 100%;
+	padding-top: 100px;
+    }
+}
+
+.get_started + .add_buttons + .total-search-results {
+    display: none;
+}
+
+.cards-share {
+    h1 {
+	padding: 40px 0;
+    }
+    .btn-link {
+	display: block;
+	margin: auto;
+	width: 350px;
+	text-align: right;
+    }
+    .cards-share-buttons {
+	padding: 30px;
+	.btn img {
+	    width: 40px;
+	}
+	p {
+	    color: #aaa;
 	}
     }
 }
