@@ -34,4 +34,7 @@ $(document).ready(function() {
 	$('main [data-toggle="popover"]').popover('hide');
 	$('main .ownedcard').popover('hide');
     });
+    $('#freeModal').on('hide.bs.modal', function() {
+	$('#freeModal .ownedcard').popover('hide');
+    });
 });

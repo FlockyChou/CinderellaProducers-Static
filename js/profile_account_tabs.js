@@ -57,8 +57,9 @@ function loadCards(pane, account) {
 }
 
 function onTabChanged(target_name, pane) {
+    var account = pane.closest('.profile-account');
+    account.find('.ownedcard').popover('hide');
     if (pane.text() == '') {
-	var account = pane.closest('.profile-account');
 	if (target_name.match(/Cards$/)) {
 	    loadCards(pane, account);
 	} else if (target_name.match(/About$/)) {

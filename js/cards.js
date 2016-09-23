@@ -18,6 +18,11 @@ function updateCards() {
     });
 }
 
+function updateCardsAndOwnedCards() {
+    updateCards();
+    updateOwnedCards();
+}
+
 function handleClickAddCard() {
     $('.card a[href="#addCard"]').unbind('click');
     $('.card a[href="#addCard"]').click(function(e) {
