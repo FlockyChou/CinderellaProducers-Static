@@ -55,6 +55,26 @@ function changeStats(stats, level) {
     });
 }
 
+function updateCards() {
+    $('[data-toggle="tooltip"]').tooltip();
+    handleClickInfo();
+    handleClickAddCard();
+    handleLevels();
+    $('.card-buttons .account-select').each(function() {
+	var select = $(this);
+	if (!select.next().hasClass('cuteform-modal-button')) {
+	    var accounts = {};
+	    select.find('option').each(function() {
+		accounts[$(this).attr('value')] = $(this).text();
+	    });
+	    cuteform(select, {
+		'modal': 'true',
+		'html': accounts,
+	    });
+	}
+    });
+}
+
 function changeSkillLevel(e) {
     e.preventDefault();
     var button = $(this);
