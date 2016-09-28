@@ -25,6 +25,10 @@ function updateOwnedCards() {
     });
     $('.ownedcard').on('shown.bs.popover', function() {
 	ajaxModals();
+	$('.popover a').click(function(e) {
+	    hidePopovers();
+	    $('.ownedcard').popover('hide');
+	});
     });
 }
 
