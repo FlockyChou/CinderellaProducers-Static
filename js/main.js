@@ -32,15 +32,6 @@ function updateOwnedCards() {
     });
 }
 
-function updateCardsAndOwnedCards() {
-    if (typeof updateCards != 'undefined') {
-	updateCards();
-    } else {
-	$.getScript($('script[src*="/js/cards.js"]').attr('src'), updateCards);
-    }
-    updateOwnedCards();
-}
-
 $(document).ready(function() {
     $('#freeModal').on('show.bs.modal', function() {
 	$('main [data-toggle="tooltip"]').tooltip('hide');

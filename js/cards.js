@@ -101,6 +101,11 @@ function updateCards() {
     });
 }
 
+function updateCardsAndOwnedCards() {
+    updateCards();
+    updateOwnedCards();
+}
+
 function changeSkillLevel(e) {
     e.preventDefault();
     var button = $(this);
