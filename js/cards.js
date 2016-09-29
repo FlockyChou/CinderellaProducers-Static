@@ -5,10 +5,35 @@ function handleClickAddCard() {
 	e.preventDefault();
 	var button = $(this);
 	var card = button.closest('.card');
-	var form = card.find('form');
+	var form = card.find('form.form-add-card');
 	var loader = card.find('.addcard-loader');
 	button.hide();
 	loader.show();
+	form.ajaxSubmit({
+	    success: function(data) {
+		loader.hide();
+		button.show();
+		card.replaceWith(data);
+		updateCards();
+		ajaxModals();
+	    },
+	    error: genericAjaxError,
+	});
+	return false;
+    });
+}
+
+function handleClickFavoriteCard() {
+    $('.card a[href="#favoriteCard"]').unbind('click');
+    $('.card a[href="#favoriteCard"]').click(function(e) {
+	e.preventDefault();
+	var button = $(this);
+	var card = button.closest('.card');
+	var form = card.find('form.form-favorite-card');
+	var loader = card.find('.favoritecard-loader');
+	button.hide();
+	loader.show();
+	console.log(form.data('action-favorite'));
 	form.ajaxSubmit({
 	    success: function(data) {
 		loader.hide();
@@ -59,6 +84,7 @@ function updateCards() {
     $('[data-toggle="tooltip"]').tooltip();
     handleClickInfo();
     handleClickAddCard();
+    handleClickFavoriteCard();
     handleLevels();
     $('.card-buttons .account-select').each(function() {
 	var select = $(this);

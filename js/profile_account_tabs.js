@@ -68,6 +68,23 @@ function onTabChanged(target_name, pane) {
     }
 }
 
+function afterLoadFavoriteCards(user_id) {
+    $.getScript(static_url + 'js/cards.js', function() {
+	updateCards();
+	pagination('/ajax/cards/', '&favorite_of=' + user_id, updateCards);
+    });
+}
+
+function loadFavoriteCards(user_id, onDone) {
+    $.get('/ajax/cards/?favorite_of=' + user_id, function(data) {
+	if (data.trim() == "") {
+	    onDone('<div class="padding20"><div class="alert alert-warning">' + gettext('No result.') + '</div></div>', afterLoadFavoriteCards);
+	} else {
+	    onDone(data, afterLoadFavoriteCards);
+	}
+    });
+}
+
 // function levelUpButtons() {
 //     $('.form-level-up').submit(function(e) {
 // 	e.preventDefault();
