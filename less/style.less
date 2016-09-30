@@ -48,7 +48,7 @@ body {
     background-image: linear-gradient(45deg, @mainColor, @secondaryColor);
     border: 0;
     transition: background-image @transition;
-    &:hover {
+    &:hover, &:focus {
 	background-image: linear-gradient(45deg, darken(@mainColor, 5%), darken(@secondaryColor, 5%));
     }
 }
@@ -144,7 +144,7 @@ body {
 	a {
 	    .a-nodifference();
 	    transition: opacity @transition;
-	    &:hover {
+	    &:hover, &:focus {
 		opacity: 0.8;
 	    }
 	}
@@ -613,7 +613,7 @@ body {
 	.nav {
 	    border-color: lighten(@color, 35%);
 	    li {
-		&:hover a, &.active a {
+		&:hover a, &:focus a, &.active a {
 		    color: @color;
 		    border-color: lighten(@color, 35%);
 		    border-bottom-color: @transparent;
@@ -763,6 +763,18 @@ body {
 	    .simple-shadow(lighten(@color, 20%));
 	}
 	& + div {
+	    &.empty {
+		li {
+		    color: @color;
+		}
+		& + div #profiletabs {
+		    li {
+			a {
+			    color: @color;
+			}
+		    }
+		}
+	    }
 	    &:not(.empty) {
 		background-color: @color;
 		table td {
@@ -770,17 +782,19 @@ body {
 		    img {
 			width: auto!important;
 		    }
-		    &:hover {
+		    &:hover, &:focus {
 			background-color: darken(@color, 10%);
 		    }
 		}
-		& + div {
+		& + div #profiletabs {
 		    li:not(.active) {
-			color: white;
-		    }
-		    li.active, li:hover {
-			color: @color;
 			a {
+			    color: white;
+			}
+		    }
+		    li.active, li:hover, li:focus {
+			a {
+			    color: @color;
 			    border-color: darken(@color, 5%);
 			    border-bottom-color: @transparent;
 			}
@@ -803,7 +817,7 @@ body {
     }
     a[href="/donate/"] {
 	.simple-shadow(white);
-	&:hover {
+	&:hover, &:focus {
 	    text-decoration: none;
 	}
     }
@@ -825,12 +839,6 @@ body {
 #profiletabs {
     margin-top: -62px;
     padding: 0 20px;
-    a {
-	color: white;
-    }
-    li.active a, li:hover a {
-	color: inherit;
-    }
 }
 
 .leaderboard-account {
@@ -850,7 +858,7 @@ body {
     }
     &:not(.account-main)>a {
 	background-color: fade(white, 30%);
-	&:hover {
+	&:hover, &:focus {
 	    background-color: @transparent;
 	}
     }
