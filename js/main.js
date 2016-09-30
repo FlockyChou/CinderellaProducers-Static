@@ -3,14 +3,6 @@ function cuteformType(value, _) {
     return static_url + 'img/color/' + value + '.png';
 }
 
-function loadToolTips() {
-    $('[data-toggle="tooltip"]').tooltip();
-}
-
-function loadPopovers() {
-    $('[data-toggle="popover"]').popover();
-}
-
 // Called by profile.js + ownedcards.js
 function updateOwnedCards() {
     $('.ownedcard').each(function() {
