@@ -66,6 +66,15 @@ body {
 .panel-Passion { .panel-simple-variant(@passionColor); }
 .panel-main { .panel-simple-variant(@mainColor); }
 
+.alert-simple-variant(@color) {
+    .alert-variant(lighten(@color, 30%), lighten(@color, 20%), white);
+}
+
+.alert-Cute { .alert-simple-variant(@cuteColor); }
+.alert-Cool { .alert-simple-variant(@coolColor); }
+.alert-Passion { .alert-simple-variant(@passionColor); }
+.alert-main { .alert-simple-variant(darken(@mainColor, 20%)); }
+
 .btn-Cute { .button-variant(white, @cuteColor, darken(@cuteColor, 2%)); }
 .btn-Cool { .button-variant(white, @coolColor, darken(@coolColor, 2%)); }
 .btn-Passion { .button-variant(white, @passionColor, darken(@passionColor, 2%)); }
@@ -733,6 +742,9 @@ body {
 	width: 100%;
 	max-width: 200px;
     }
+    .avatar_wrapper + .popover {
+	color: @mainColor;
+    }
     a, #username {
 	color: white;
     }
@@ -762,6 +774,18 @@ body {
 			background-color: darken(@color, 10%);
 		    }
 		}
+		& + div {
+		    li:not(.active) {
+			color: white;
+		    }
+		    li.active, li:hover {
+			color: @color;
+			a {
+			    border-color: darken(@color, 5%);
+			    border-bottom-color: @transparent;
+			}
+		    }
+		}
 	    }
 	}
     }
@@ -772,6 +796,9 @@ body {
 	.per_type(@mainColor);
 	.description {
 	    color: @mainColor;
+	}
+	& + div:not(.empty) {
+	    color: white;
 	}
     }
     a[href="/donate/"] {
@@ -803,14 +830,6 @@ body {
     }
     li.active a, li:hover a {
 	color: inherit;
-    }
-}
-
-.jumbotron-main + div + div {
-    #profiletabs {
-	a {
-	    color: @mainColor;
-	}
     }
 }
 
@@ -1017,5 +1036,12 @@ body {
 	p {
 	    color: #aaa;
 	}
+    }
+}
+
+.alert-before-list {
+    line-height: 100px;
+    img {
+	height: 100px;
     }
 }
