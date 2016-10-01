@@ -83,4 +83,11 @@ $(document).ready(function() {
 	    $('.ownedcard').popover('hide');
 	}
     });
+    if ($('.current-index').length > 0) {
+	$('.home-site-description').replaceWith('<div class="clearfix"><img src="http://emojione.com/wp-content/uploads/assets/emojis/1f389.svg" class="pull-left" height="100"><h1 id="countdown"></h1></div>');
+	$('#countdown').countdown({
+	    date: eventcountdown,
+	    render: render,
+	});
+    }
 });
